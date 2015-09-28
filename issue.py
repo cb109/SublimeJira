@@ -36,7 +36,8 @@ class Issue(object):
     return (
       settings().get('jira_login'),
       settings().get('jira_password'),
-      {'server': settings().get('jira_server')}
+      {'server': settings().get('jira_server'),
+       'verify': settings().get('jira_certificate_verification')}
     )
 
   def get_issue(self, key):
