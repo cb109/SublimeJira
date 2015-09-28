@@ -54,6 +54,7 @@ class Issue(object):
       'issuetype': {'name': self.extract_type(text)},
       'priority': {'name': self.extract_priority(text)},
       'labels': self.extract_labels(text),
+      'assignee': {'name': self.extract_assignee(text)},
       'description': self.extract_description(text),
     }
 
@@ -89,6 +90,14 @@ class Issue(object):
       sublime.error_message(err)
       raise
 
+  def extract_assignee(self, text):
+    try:
+      return re.search(r'Assignee: (.*)', text).groups()[0].strip()
+    except AttributeError:
+      err = "SublimeJira error: Can't find issue assignee"
+      sublime.error_message(err)
+      raise
+
   def extract_labels(self, text):
     try:
       labels = re.search(r'Labels: (.*)', text).groups()[0]
@@ -121,6 +130,7 @@ class Issue(object):
       'project': {'key': project},
       'summary': summary,
       'issuetype': {'name': settings().get('jira_default_issuetype')},
+      'assignee': {'name': settings().get('jira_default_assignee')}
     }
     new_issue = self.jira.create_issue(fields=issue_dict)
 
