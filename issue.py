@@ -23,8 +23,6 @@ class Issue(object):
     "{fields.description}\n"
   )
 
-  DEFAULT_ISSUE_TYPE = 'Story'
-
   def __init__(self):
     global _jira
     login, password, self.options = self.load_config()
@@ -121,7 +119,7 @@ class Issue(object):
     issue_dict = {
       'project': {'key': project},
       'summary': summary,
-      'issuetype': {'name': self.DEFAULT_ISSUE_TYPE},
+      'issuetype': {'name': settings().get('jira_default_issuetype')},
     }
     new_issue = self.jira.create_issue(fields=issue_dict)
 

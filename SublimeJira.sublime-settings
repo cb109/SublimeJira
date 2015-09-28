@@ -2,5 +2,6 @@
   "jira_server": "https://domain.atlassian.net",
   "jira_login": "username",
   "jira_password": "password",
-  "jira_default_project": "PROJECT"
+  "jira_default_project": "PROJECT",
+  "jira_default_issuetype": "Story"
 }
